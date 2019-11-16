@@ -16,7 +16,7 @@ const invalidMockArticle = {
 
 describe("insert", () => {
     beforeAll(async () => {
-        const url = "mongodb://mongo:27017/testing";
+        const url = "mongodb://localhost:27017/testing";
 
         await mongoose.connect(url, {
             useNewUrlParser: true,
@@ -55,13 +55,13 @@ describe("insert", () => {
         };
         await Article.create(mockArticleUniqueTitle);
 
-        let articleCount = await Article.count();
+        let articleCount = await Article.countDocuments();
 
         // Har ett dokument fra første test, så skal ha 2 nå, og 1 etter delete
         expect(articleCount).toBe(2);
 
         await Article.deleteOne({ title: "Title" });
-        articleCount = await Article.count();
+        articleCount = await Article.countDocuments();
 
         expect(articleCount).toBe(1);
 
