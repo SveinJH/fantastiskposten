@@ -3,11 +3,7 @@ image: node:latest
 services:
     - mongo:latest
 
-variables:
-    MONGO_URL: "mongodb://mongo:27017/testing"
-
 test:
     script:
         - cd server && npm install
-        - DATABASE_URL=mongodb://mongo:27017/testing
         - npm test

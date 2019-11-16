@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.ts",
     "scripts": {
-        "test": "jest --runInBand"
+        "test": "jest"
     },
     "repository": {
         "type": "git",
@@ -24,7 +24,5 @@
         "ts-jest": "^24.1.0",
         "typescript": "^3.7.2"
     },
-    "devDependencies": {
-        "mongodb-memory-server-core": "^6.0.1"
-    }
+    "devDependencies": {}
 }

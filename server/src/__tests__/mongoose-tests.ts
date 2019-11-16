@@ -1,8 +1,4 @@
 const mongoose = require("mongoose");
-const { MongoMemoryServer } = require("mongodb-memory-server-core");
-
-const mongod = new MongoMemoryServer();
-
 import Article from "../models/articleModel";
 
 const mockArticle = {
@@ -20,12 +16,11 @@ const invalidMockArticle = {
 
 describe("insert", () => {
     beforeAll(async () => {
-        const url = await mongod.getConnectionString();
+        const url = "mongodb://mongo:27017/testing";
 
         await mongoose.connect(url, {
             useNewUrlParser: true,
-            useUnifiedTopology: true,
-            autoReconnect: true
+            useUnifiedTopology: true
         });
     });
 
