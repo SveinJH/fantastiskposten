@@ -1,0 +1,16 @@
+image: node:latest
+
+services:
+    - mongo:latest
+
+variables:
+    MONGO_URL: "mongodb://localhost/testing"
+
+cache:
+    paths:
+        - node_modules/
+
+test:
+    script:
+        - npm install
+        - npm run test
