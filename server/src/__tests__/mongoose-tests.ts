@@ -16,7 +16,12 @@ const invalidMockArticle = {
 
 describe("insert", () => {
     beforeAll(async () => {
-        const url = "mongodb://mongo:27017/testing";
+        let url;
+        if (process.env.TEST === "external") {
+            url = "mongodb://mongo:27017/testing";
+        } else {
+            url = "mongodb://localhost:27017/testing";
+        }
 
         await mongoose.connect(url, {
             useNewUrlParser: true,

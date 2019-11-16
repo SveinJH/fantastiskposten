@@ -6,4 +6,4 @@ services:
 test:
     script:
         - cd server && npm install
-        - npm test
+        - npm run testExternal

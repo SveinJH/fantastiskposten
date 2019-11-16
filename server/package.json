@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.ts",
     "scripts": {
-        "test": "jest"
+        "testLocal": "jest",
+        "testExternal": "cross-env TEST=external jest"
     },
     "repository": {
         "type": "git",
@@ -24,5 +25,7 @@
         "ts-jest": "^24.1.0",
         "typescript": "^3.7.2"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "cross-env": "^6.0.3"
+    }
 }
