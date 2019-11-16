@@ -8,4 +8,6 @@ variables:
 
 test:
     script:
-        - cd server && npm install && npm test
+        - cd server && npm install
+        - DATABASE_URL=mongodb://mongo:27017/testing
+        - npm test
