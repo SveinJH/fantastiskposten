@@ -1,6 +1,4 @@
 development:
-    options:
-        raise_not_found_error: false
     clients:
         default:
             database: mongoid_dev
@@ -8,8 +6,6 @@ development:
                 - mongo:27017
 
 test:
-    options:
-        raise_not_found_error: false
     clients:
         default:
             database: mongoid_dev
