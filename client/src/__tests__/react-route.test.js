@@ -4,7 +4,7 @@ import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import App from '../containers/App';
 
-test('renders at landing page', () => {
+test('renders at landing page', async () => {
     const history = createMemoryHistory();
     render(
         <Router history={history}>
