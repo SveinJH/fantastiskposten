@@ -1,4 +1,8 @@
 const mongoose = require("mongoose");
+const { MongoMemoryServer } = require("mongodb-memory-server-core");
+
+const mongod = new MongoMemoryServer();
+
 import Article from "../models/articleModel";
 
 const mockArticle = {
@@ -16,9 +20,12 @@ const invalidMockArticle = {
 
 describe("insert", () => {
     beforeAll(async () => {
-        await mongoose.connect("mongodb://localhost/testing", {
+        const url = await mongod.getConnectionString();
+
+        await mongoose.connect(url, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            autoReconnect: true
         });
     });
 
@@ -44,7 +51,7 @@ describe("insert", () => {
         expect(importance).toEqual(1);
         expect(image).toEqual("URL");
         done();
-    });
+    }, 30000);
 
     it("should contain two documents after insert, one documents after delete", async done => {
         const mockArticleUniqueTitle = {
@@ -64,7 +71,7 @@ describe("insert", () => {
         expect(articleCount).toBe(1);
 
         done();
-    });
+    }, 30000);
 
     it("should throw error on invalid data", async done => {
         expect.assertions(1);
@@ -74,7 +81,7 @@ describe("insert", () => {
             expect(e.message).toMatch(/article validation failed/i);
         }
         done();
-    });
+    }, 30000);
 
     it("should throw error on duplicate titles", async done => {
         expect.assertions(1);
@@ -86,5 +93,5 @@ describe("insert", () => {
         }
 
         done();
-    });
+    }, 30000);
 });
