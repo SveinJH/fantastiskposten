@@ -1,0 +1,27 @@
+{
+    "name": "fpapi",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.ts",
+    "scripts": {
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.stud.idi.ntnu.no/sveijh/fpapi.git"
+    },
+    "author": "SJH",
+    "license": "ISC",
+    "dependencies": {
+        "@types/express": "^4.17.2",
+        "@types/jest": "^24.0.23",
+        "@types/mongoose": "^5.5.30",
+        "@types/node": "^12.12.7",
+        "dotenv": "^8.1.0",
+        "express": "^4.17.1",
+        "jest": "^24.9.0",
+        "mongoose": "^5.7.7",
+        "ts-jest": "^24.1.0",
+        "typescript": "^3.7.2"
+    }
+}

@@ -1,0 +1,41 @@
+.header {
+    background: linear-gradient(to right, #2f498e, #192a56);
+    line-height: 1;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.32);
+
+    display: flex;
+    justify-content: space-between;
+
+    &__logo {
+        margin-right: auto;
+        font-size: 2.2rem !important;
+    }
+
+    &__item {
+        font-size: 1.8rem;
+        font-weight: 300;
+        padding: 0.8rem 4rem;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        outline: none;
+        text-decoration: none;
+        color: #fff;
+        letter-spacing: 0.1rem;
+        transition: background 0.25s, cursor 0.25s, box-shadow 0.25s;
+
+        &:hover {
+            cursor: pointer;
+            box-shadow: 0 1.5rem 2rem rgba(0, 0, 0, 0.4);
+            color: #888;
+        }
+    }
+}
+
+:global(ul) {
+    list-style: none;
+
+    & li {
+        display: inline-block;
+    }
+}

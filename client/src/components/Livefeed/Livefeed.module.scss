@@ -1,0 +1,13 @@
+.Livefeed__item {
+    margin-left: 15rem;
+    font-size: 1.8rem;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &__createdAt {
+        color: #e74c3c;
+        font-style: italic;
+    }
+}

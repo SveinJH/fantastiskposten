@@ -1,0 +1,15 @@
+.Home {
+    margin: 3rem 10vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+    grid-column-gap: 7rem;
+    grid-row-gap: 3rem;
+}
+
+:global {
+    .Margin {
+        &--right {
+            margin-right: 1.5rem;
+        }
+    }
+}
