@@ -7,3 +7,5 @@ test:
     script:
         - cd server && npm install
         - npm run testExternal
+        - cd ../client && npm install
+        - npm test
