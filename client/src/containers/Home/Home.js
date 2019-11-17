@@ -3,8 +3,8 @@
 import React, { Component } from 'react';
 import { articleService } from '../../assets/services/services';
 
-import ArticlesPreview from '../Articles/ArticlesPreview/ArticlesPreview';
-import Livefeed from '../Livefeed/Livefeed.tsx';
+import ArticlesPreview from '../../components/Articles/ArticlesPreview/ArticlesPreview';
+import Livefeed from '../../components/Livefeed/Livefeed';
 import classes from './Home.module.scss';
 
 export default class Home extends Component {

@@ -14,8 +14,9 @@ const invalidMockArticle = {
     description: "Innhold"
 };
 
-describe("insert", () => {
+describe("testing database", () => {
     beforeAll(async () => {
+        jest.setTimeout(10000);
         let url;
         if (process.env.TEST === "external") {
             url = "mongodb://mongo:27017/testing";
@@ -29,15 +30,20 @@ describe("insert", () => {
         });
     });
 
-    afterAll(async () => {
+    afterEach(async () => {
         await Article.deleteMany();
+    });
+
+    afterAll(async () => {
         await mongoose.connection.close();
     });
 
     it("should insert a doc into collection", async done => {
         await Article.create(mockArticle);
 
-        const insertedArticle = await Article.findOne({ title: "Overskrift" });
+        const insertedArticle = await Article.findOne({
+            title: "Overskrift"
+        });
         const {
             title,
             description,
@@ -51,9 +57,9 @@ describe("insert", () => {
         expect(importance).toEqual(1);
         expect(image).toEqual("URL");
         done();
-    }, 30000);
+    });
 
-    it("should contain two documents after insert, one documents after delete", async done => {
+    it("should contain one document after insert, zero documents after delete", async done => {
         const mockArticleUniqueTitle = {
             ...mockArticle,
             title: "Title"
@@ -62,16 +68,23 @@ describe("insert", () => {
 
         let articleCount = await Article.countDocuments();
 
-        // Har ett dokument fra første test, så skal ha 2 nå, og 1 etter delete
-        expect(articleCount).toBe(2);
+        expect(articleCount).toBe(1);
 
         await Article.deleteOne({ title: "Title" });
         articleCount = await Article.countDocuments();
 
-        expect(articleCount).toBe(1);
+        expect(articleCount).toBe(0);
 
         done();
-    }, 30000);
+    });
+
+    it("should return zero elements on mismatching data", async done => {
+        await Article.create(mockArticle);
+        const data = await Article.find({ title: "Ukjent" });
+
+        expect(data.length).toBe(0);
+        done();
+    });
 
     it("should throw error on invalid data", async done => {
         expect.assertions(1);
@@ -81,17 +94,18 @@ describe("insert", () => {
             expect(e.message).toMatch(/article validation failed/i);
         }
         done();
-    }, 30000);
+    });
 
     it("should throw error on duplicate titles", async done => {
         expect.assertions(1);
 
         try {
             await Article.create(mockArticle);
+            await Article.create(mockArticle);
         } catch (e) {
             expect(e.message).toMatch(/duplicate key error/i);
         }
 
         done();
-    }, 30000);
+    });
 });

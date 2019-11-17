@@ -29,6 +29,31 @@ const articleSchema = new mongoose.Schema(
         createdAt: {
             type: Date,
             default: Date.now()
+        },
+        comments: [
+            {
+                author: {
+                    type: String,
+                    trim: true
+                },
+                content: {
+                    type: String,
+                    trim: true,
+                    minlength: 4,
+                    maxlength: 100
+                }
+            }
+        ],
+        rating: {
+            totalRating: {
+                type: Number,
+                min: 0,
+                default: 0
+            },
+            ratersCount: {
+                type: Number,
+                default: 0
+            }
         }
     },
     {

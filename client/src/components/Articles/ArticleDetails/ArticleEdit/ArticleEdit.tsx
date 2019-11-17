@@ -18,13 +18,11 @@ const articleEdit = ({
 }: ArticleEditProps) => (
     <Popup trigger={<button className="Button"> Rediger sak </button>} modal>
         {close => (
-            <div className="modal">
-                <a className="close" onClick={close}>
-                    &times;
-                </a>
-                <div className="header"> Rediger sak</div>
-                <div className="content">
-                    <form onSubmit={saved}>
+            <div>
+                <a onClick={close}>&times;</a>
+                <div className={classes.ArticleEdit__title}> Rediger sak</div>
+                <div>
+                    <form className={classes.Form} onSubmit={saved}>
                         <label>
                             <p>Overskrift</p>
                             <input
@@ -75,7 +73,7 @@ const articleEdit = ({
                         </label>
 
                         <label>
-                            {'Viktig?'}
+                            <p>Viktig?</p>
                             <input
                                 name="importance"
                                 type="checkbox"
@@ -83,11 +81,16 @@ const articleEdit = ({
                             />
                         </label>
 
-                        <input type="submit" value="Lagre" />
+                        <input
+                            type="submit"
+                            value="Lagre"
+                            className="Button Button--save"
+                        />
                     </form>
                 </div>
-                <div className="actions">
+                <div>
                     <button
+                        style={{ padding: '0.2rem 1rem' }}
                         onClick={() => {
                             close();
                         }}

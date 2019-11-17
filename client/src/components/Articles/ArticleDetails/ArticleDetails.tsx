@@ -3,6 +3,7 @@ import { articleService } from '../../../assets/services/services';
 
 import classes from './ArticleDetails.module.scss';
 import ArticleEdit from './ArticleEdit/ArticleEdit';
+import ArticleRating from './ArticleRating/ArticleRating';
 
 type ArticleDetailsState = {
     article: {
@@ -11,9 +12,24 @@ type ArticleDetailsState = {
         image: string;
         category: string;
         importance: number;
+        comments: [
+            {
+                author: string;
+                content: string;
+            }
+        ];
+        rating: {
+            totalRating: number;
+            ratersCount: number;
+        };
     };
     tempArticle: any;
     date: any;
+    newComment: {
+        author: string;
+        content: string;
+    };
+    currentRating: number;
 };
 
 export default class ArticleDetails extends Component<
@@ -26,10 +42,25 @@ export default class ArticleDetails extends Component<
             description: '',
             image: '',
             category: '',
-            importance: 0
+            importance: 0,
+            comments: [
+                {
+                    author: '',
+                    content: ''
+                }
+            ],
+            rating: {
+                totalRating: 0,
+                ratersCount: 0
+            }
         },
         tempArticle: {},
-        date: ''
+        date: '',
+        newComment: {
+            author: '',
+            content: ''
+        },
+        currentRating: 0
     };
 
     componentDidMount() {
@@ -38,10 +69,19 @@ export default class ArticleDetails extends Component<
             let date = new Date(article.data.article.createdAt).toUTCString();
             date = date.substring(0, date.length - 7);
 
+            let currentRating = parseFloat(
+                (
+                    article.data.article.rating.totalRating /
+                    article.data.article.rating.ratersCount
+                ).toFixed(1)
+            );
+            if (!currentRating) currentRating = 0;
+
             this.setState({
                 article: article.data.article,
                 tempArticle: article.data.article,
-                date
+                date,
+                currentRating
             });
         });
     }
@@ -103,9 +143,89 @@ export default class ArticleDetails extends Component<
         }
     };
 
+    // Håndtere ny kommentar
+    handleNewComment = (event: React.SyntheticEvent) => {
+        event.preventDefault();
+        const newComments = this.state.article.comments.map(comment => {
+            return { author: comment.author, content: comment.content };
+        });
+
+        if (this.state.newComment) {
+            const author = this.state.newComment.author;
+            const content = this.state.newComment.content;
+            newComments.push({ author, content });
+
+            articleService
+                .updateComments(this.props.match.params.id, newComments)
+                .then(data => {
+                    this.setState({
+                        article: data.data.article,
+                        newComment: { author: '', content: '' }
+                    });
+                });
+        }
+    };
+
+    // Hådtere endring i kommentarfeltene
+    handleCommentChange = (event: React.SyntheticEvent) => {
+        let target = event.target as HTMLInputElement;
+
+        const newComment = {
+            ...this.state.newComment,
+            [target.name]: target.value
+        };
+
+        this.setState({ newComment });
+    };
+
+    // Håndtere endring i rating
+    handleRatingChange = (event: React.SyntheticEvent) => {
+        let target = event.target as HTMLInputElement;
+        const totalRating: number =
+            this.state.article.rating.totalRating + parseInt(target.value);
+        const ratersCount: number = this.state.article.rating.ratersCount + 1;
+        const newRating: number = parseFloat(
+            (totalRating / ratersCount).toFixed(1)
+        );
+
+        const article = {
+            ...this.state.article,
+            rating: {
+                totalRating,
+                ratersCount
+            }
+        };
+
+        articleService
+            .updateRating(this.props.match.params.id, article.rating)
+            .then(data => {
+                this.setState({ article, currentRating: newRating });
+            });
+    };
+
     render() {
+        let currentComments;
+        if (this.state.article.comments.length > 0) {
+            currentComments = this.state.article.comments.map((comment, i) => {
+                return (
+                    <div key={i} className={classes.ArticleDetails__comment}>
+                        <p className={classes.ArticleDetails__comment__content}>
+                            {comment.content}
+                        </p>
+                        <h5 className={classes.ArticleDetails__comment__author}>
+                            - {comment.author}
+                        </h5>
+                    </div>
+                );
+            });
+        }
+
         return (
             <div className={classes.ArticleDetails}>
+                <ArticleRating
+                    rating={this.state.currentRating}
+                    clicked={this.handleRatingChange}
+                />
                 <div className={classes.ArticleDetails__item}>
                     <h1 className={classes.ArticleDetails__title}>
                         {this.state.article.title}
@@ -128,6 +248,36 @@ export default class ArticleDetails extends Component<
                     <p className={classes.ArticleDetails__description}>
                         {this.state.article.description}
                     </p>
+                    <div className={classes.ArticleDetails__commentsContainer}>
+                        <h3>Kommentarer</h3>
+                        <div className={classes.ArticleDetails__comments}>
+                            {currentComments}
+                        </div>
+                        <div className={classes.ArticleDetails__newComment}>
+                            <form onSubmit={this.handleNewComment}>
+                                <h3>Legg inn en kommentar:</h3>
+                                <p>Ditt navn:</p>
+                                <input
+                                    name="author"
+                                    value={this.state.newComment.author}
+                                    onChange={this.handleCommentChange}
+                                    type="text"
+                                />
+                                <p>Kommentar:</p>
+                                <input
+                                    name="content"
+                                    value={this.state.newComment.content}
+                                    onChange={this.handleCommentChange}
+                                    type="text"
+                                />
+                                <input
+                                    type="submit"
+                                    value="Kommenter"
+                                    className="Button--save Button"
+                                />
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div className={classes.ArticleDetails__controls}>
                     <ArticleEdit

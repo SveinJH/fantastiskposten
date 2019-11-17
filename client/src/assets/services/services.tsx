@@ -2,6 +2,8 @@ import url from '../url/url';
 import Axios from 'axios';
 
 class ArticleService {
+    //////////////
+    // ARTICLES
     getArticles = async (query: string) => {
         return Axios.get(`${url}${query}`).then(response => response.data);
     };
@@ -22,6 +24,36 @@ class ArticleService {
 
     createArticle = async (newArticle: object) => {
         return Axios.post(`${url}`, newArticle).then(response => response.data);
+    };
+
+    //////////////
+    // COMMENTS
+    updateComments = async (
+        id: string,
+        comments: { author: string; content: string }[]
+    ) => {
+        const newComments = {
+            comments: [...comments]
+        };
+
+        return Axios.patch(`${url}/${id}`, newComments).then(
+            response => response.data
+        );
+    };
+
+    //////////////
+    // RATING
+    updateRating = async (
+        id: string,
+        rating: { totalRating: number; ratersCount: number }
+    ) => {
+        const newRating = {
+            rating: { ...rating }
+        };
+
+        return Axios.patch(`${url}/${id}`, newRating).then(
+            response => response.data
+        );
     };
 }
 

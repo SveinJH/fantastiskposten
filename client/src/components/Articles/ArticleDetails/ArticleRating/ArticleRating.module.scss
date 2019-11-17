@@ -1,0 +1,18 @@
+.ArticleRating {
+    &__display {
+        font-size: 6rem;
+        color: #5670b8;
+
+        &_small {
+            font-size: 3rem;
+            color: #000;
+        }
+    }
+
+    &__buttons {
+        button {
+            font-size: 3rem;
+            padding: 0 1rem;
+        }
+    }
+}

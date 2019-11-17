@@ -60,19 +60,19 @@
     & input[type='checkbox'] {
         margin-left: 0.5rem;
     }
-}
 
-input,
-textarea,
-label,
-select,
-button,
-option {
-    font-size: 1.6rem;
-    font-family: 'Lato', sans-serif;
-    padding: 0.5rem 1rem;
-    width: 100%;
-    border-radius: 0.4rem;
+    input,
+    textarea,
+    label,
+    select,
+    button,
+    option {
+        font-size: 1.6rem;
+        font-family: 'Lato', sans-serif;
+        padding: 0.5rem 1rem;
+        width: 100%;
+        border-radius: 0.4rem;
+    }
 }
 
 :global {
