@@ -78,6 +78,21 @@ describe("testing database", () => {
         done();
     });
 
+    it("should correctly update a document", async done => {
+        await Article.create(mockArticle);
+        const updatedArticle = await Article.findOneAndUpdate(
+            {
+                title: "Overskrift"
+            },
+            { $set: { title: "Oppdatert" } },
+            { new: true }
+        );
+
+        expect(updatedArticle.title).toMatch("Oppdatert");
+
+        done();
+    });
+
     it("should return zero elements on mismatching data", async done => {
         await Article.create(mockArticle);
         const data = await Article.find({ title: "Ukjent" });

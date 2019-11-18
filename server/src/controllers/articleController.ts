@@ -1,18 +1,19 @@
-import Article from './../models/articleModel';
-import APIFeatures from './../utils/APIFeatures';
-
+import Article from "./../models/articleModel";
+import APIFeatures from "./../utils/APIFeatures";
 
 exports.getAllArticles = async (req: any, res: any) => {
     try {
         // Execute query
-        const features = new APIFeatures(Article.find(), req.query).sort().importify().categorise();
-        
+        const features = new APIFeatures(Article.find(), req.query)
+            .sort()
+            .importify()
+            .categorise();
+
         const articles = await features.query;
-        
 
         // Send response
         res.status(200).json({
-            status: 'success',
+            status: "success",
             results: articles.length,
             data: {
                 articles
@@ -20,7 +21,7 @@ exports.getAllArticles = async (req: any, res: any) => {
         });
     } catch (err) {
         res.status(400).json({
-            status: 'fail',
+            status: "fail",
             message: err
         });
     }
@@ -29,17 +30,16 @@ exports.getAllArticles = async (req: any, res: any) => {
 exports.getArticle = async (req: any, res: any) => {
     try {
         const article = await Article.findById(req.params.id);
-        // Tour.findOne({ _id: req.params.id })
 
         res.status(200).json({
-            status: 'success',
+            status: "success",
             data: {
                 article
             }
         });
     } catch (err) {
         res.status(400).json({
-            status: 'fail',
+            status: "fail",
             message: err
         });
     }
@@ -47,17 +47,17 @@ exports.getArticle = async (req: any, res: any) => {
 
 exports.createArticle = async (req: any, res: any) => {
     try {
-        const newArticle : any = await Article.create(req.body);
+        const newArticle: any = await Article.create(req.body);
 
         res.status(201).json({
-            status: 'success',
+            status: "success",
             data: {
                 article: newArticle
             }
         });
     } catch (err) {
         res.status(400).json({
-            status: 'fail',
+            status: "fail",
             message: err
         });
     }
@@ -65,20 +65,24 @@ exports.createArticle = async (req: any, res: any) => {
 
 exports.updateArticle = async (req: any, res: any) => {
     try {
-        const article = await Article.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        });
+        const article = await Article.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {
+                new: true,
+                runValidators: true
+            }
+        );
 
         res.status(200).json({
-            status: 'success',
+            status: "success",
             data: {
                 article
             }
         });
     } catch (err) {
         res.status(400).json({
-            status: 'fail',
+            status: "fail",
             message: err
         });
     }
@@ -89,12 +93,12 @@ exports.deleteArticle = async (req: any, res: any) => {
         await Article.findByIdAndDelete(req.params.id);
 
         res.status(204).json({
-            status: 'success',
+            status: "success",
             data: null
         });
     } catch (err) {
         res.status(400).json({
-            status: 'fail',
+            status: "fail",
             message: err
         });
     }
