@@ -1,6 +1,7 @@
 import React from 'react';
 import Popup from 'reactjs-popup';
 
+import ArticleForm from '../../ArticleForm/ArticleForm';
 import classes from './ArticleEdit.module.scss';
 
 type ArticleEditProps = {
@@ -21,72 +22,16 @@ const articleEdit = ({
             <div>
                 <a onClick={close}>&times;</a>
                 <div className={classes.ArticleEdit__title}> Rediger sak</div>
-                <div>
-                    <form className={classes.Form} onSubmit={saved}>
-                        <label>
-                            <p>Overskrift</p>
-                            <input
-                                name="title"
-                                type="text"
-                                required
-                                value={article.title}
-                                onChange={changed}
-                            />
-                        </label>
-
-                        <label>
-                            <p>Innhold</p>
-                            <textarea
-                                name="description"
-                                rows={4}
-                                cols={30}
-                                required
-                                value={article.description}
-                                onChange={changed}
-                            />
-                        </label>
-
-                        <label>
-                            <p>Bilde (url)</p>
-                            <input
-                                name="image"
-                                type="text"
-                                required
-                                value={article.image}
-                                onChange={changed}
-                            />
-                        </label>
-
-                        <label>
-                            <p>Kategori</p>
-                            <select
-                                name="category"
-                                value={article.category}
-                                onChange={changed}
-                            >
-                                <option value="Nyheter">Nyheter</option>
-                                <option value="Underholdning">
-                                    Underholdning
-                                </option>
-                                <option value="Sport">Sport</option>
-                            </select>
-                        </label>
-
-                        <label>
-                            <p>Viktig?</p>
-                            <input
-                                name="importance"
-                                type="checkbox"
-                                onChange={checkboxChanged}
-                            />
-                        </label>
-
-                        <input
-                            type="submit"
-                            value="Lagre"
-                            className="Button Button--save"
-                        />
-                    </form>
+                <div className={classes.ArticleForm}>
+                    <ArticleForm
+                        title={article.title}
+                        description={article.description}
+                        image={article.image}
+                        category={article.category}
+                        changed={changed}
+                        checkboxChanged={checkboxChanged}
+                        saved={saved}
+                    />
                 </div>
                 <div>
                     <button

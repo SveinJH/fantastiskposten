@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { articleService } from '../../assets/services/services';
 
+import ArticleForm from '../../components/Articles/ArticleForm/ArticleForm';
 import classes from './CreateArticle.module.scss';
 
 type CreateArticleProps = {
@@ -88,69 +89,15 @@ export default class CreateArticle extends Component<
         return (
             <div className={classes.CreateArticle}>
                 <h2 className={classes.CreateArticle__heading}>Ny artikkel</h2>
-                <form className={classes.Form} onSubmit={this.handleSubmit}>
-                    <label>
-                        <p>
-                            Overskrift <span className="Required">*</span>
-                        </p>
-                        <input
-                            name="title"
-                            type="text"
-                            value={this.state.newArticle.title}
-                            onChange={this.handleChange}
-                            required
-                        />
-                    </label>
-
-                    <label>
-                        <p>
-                            Innhold <span className="Required">*</span>
-                        </p>
-                        <textarea
-                            name="description"
-                            value={this.state.newArticle.description}
-                            onChange={this.handleChange}
-                            rows={4}
-                            cols={30}
-                            required
-                        />
-                    </label>
-
-                    <label>
-                        <p>
-                            Bilde (url) <span className="Required">*</span>
-                        </p>
-                        <input
-                            name="image"
-                            type="text"
-                            value={this.state.newArticle.image}
-                            onChange={this.handleChange}
-                            required
-                        />
-                    </label>
-
-                    <label>
-                        <p>
-                            Kategori <span className="Required">*</span>
-                        </p>
-                        <select name="category" onChange={this.handleChange}>
-                            <option value="Nyheter">Nyheter</option>
-                            <option value="Underholdning">Underholdning</option>
-                            <option value="Sport">Sport</option>
-                        </select>
-                    </label>
-
-                    <label>
-                        {'Viktig?'}
-                        <input
-                            name="importance"
-                            type="checkbox"
-                            onChange={this.handleCheckbox}
-                        />
-                    </label>
-
-                    <input type="submit" value="Registrer" />
-                </form>
+                <ArticleForm
+                    title={this.state.newArticle.title}
+                    description={this.state.newArticle.description}
+                    image={this.state.newArticle.image}
+                    category={this.state.newArticle.category}
+                    changed={this.handleChange}
+                    checkboxChanged={this.handleCheckbox}
+                    saved={this.handleSubmit}
+                />
             </div>
         );
     }
