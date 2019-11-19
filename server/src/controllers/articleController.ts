@@ -7,7 +7,8 @@ exports.getAllArticles = async (req: any, res: any) => {
         const features = new APIFeatures(Article.find(), req.query)
             .sort()
             .importify()
-            .categorise();
+            .categorise()
+            .limit();
 
         const articles = await features.query;
 
@@ -95,6 +96,22 @@ exports.deleteArticle = async (req: any, res: any) => {
         res.status(204).json({
             status: "success",
             data: null
+        });
+    } catch (err) {
+        res.status(400).json({
+            status: "fail",
+            message: err
+        });
+    }
+};
+
+exports.getAllTitles = async (req: any, res: any) => {
+    try {
+        const titles = await Article.find({}, { title: 1, createdAt: 1 });
+
+        res.status(200).json({
+            status: "success",
+            data: titles
         });
     } catch (err) {
         res.status(400).json({

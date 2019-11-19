@@ -8,6 +8,8 @@ router
     .get(articleController.getAllArticles)
     .post(articleController.createArticle);
 
+router.route("/titles").get(articleController.getAllTitles);
+
 router
     .route("/:id")
     .get(articleController.getArticle)

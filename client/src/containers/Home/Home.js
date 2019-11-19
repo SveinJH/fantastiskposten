@@ -9,7 +9,8 @@ import classes from './Home.module.scss';
 
 export default class Home extends Component {
     state = {
-        articles: []
+        articles: [],
+        livefeedItems: []
     };
 
     async componentDidMount() {
@@ -17,22 +18,19 @@ export default class Home extends Component {
         if (this.props[0]) {
             query = `?category=${this.props[0]}`;
         } else {
-            query = '?importance=1';
+            query = '?importance=1&limit=20';
         }
 
         try {
             const articles = await articleService.getArticle(query);
-            this.setState({ articles: articles.data.articles });
+            const livefeedItems = await articleService.getLivefeedItems();
+            this.setState({
+                articles: articles.data.articles,
+                livefeedItems: livefeedItems.data
+            });
         } catch (err) {
             console.log(err);
         }
-
-        /* await articleService
-            .getArticles(query)
-            .then(articles => {
-                this.setState({ articles: articles.data.articles });
-            })
-            .catch(error => console.log(error.message)); */
     }
 
     handleClick = event => {
@@ -47,9 +45,10 @@ export default class Home extends Component {
         return (
             <div>
                 <Livefeed
-                    items={this.state.articles}
+                    items={this.state.livefeedItems}
                     clicked={this.handleClick}
                 />
+                <h1>{this.props[0]}</h1>
                 <main className={classes.Home}>
                     <ArticlesPreview
                         articles={this.state.articles}

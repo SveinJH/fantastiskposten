@@ -1,6 +1,6 @@
 class APIFeatures {
-    query : any;
-    queryString : any;
+    query: any;
+    queryString: any;
 
     constructor(query: any, queryString: any) {
         this.query = query;
@@ -9,18 +9,20 @@ class APIFeatures {
 
     sort() {
         if (this.queryString.sort) {
-            const sortBy = this.queryString.sort.split(',').join(' ');
+            const sortBy = this.queryString.sort.split(",").join(" ");
             this.query = this.query.sort(sortBy);
         } else {
-            this.query = this.query.sort('-createdAt');
+            this.query = this.query.sort("-createdAt");
         }
 
         return this;
     }
 
-    importify () {
+    importify() {
         if (this.queryString.importance) {
-            this.query = this.query.find({ importance: this.queryString.importance });
+            this.query = this.query.find({
+                importance: this.queryString.importance
+            });
         } else {
             this.query = this.query;
         }
@@ -28,9 +30,21 @@ class APIFeatures {
         return this;
     }
 
-    categorise () {
+    categorise() {
         if (this.queryString.category) {
-            this.query = this.query.find({ category: this.queryString.category });
+            this.query = this.query.find({
+                category: this.queryString.category
+            });
+        } else {
+            this.query = this.query;
+        }
+
+        return this;
+    }
+
+    limit() {
+        if (this.queryString.limit) {
+            this.query = this.query.limit(this.queryString.limit * 1);
         } else {
             this.query = this.query;
         }

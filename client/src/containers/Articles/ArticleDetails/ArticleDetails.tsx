@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { articleService } from '../../../assets/services/services';
 
 import classes from './ArticleDetails.module.scss';
-import ArticleEdit from './ArticleEdit/ArticleEdit';
-import ArticleRating from './ArticleRating/ArticleRating';
+import ArticleEdit from '../../../components/Articles/ArticleEdit/ArticleEdit';
+import ArticleRating from '../../../components/Articles/ArticleRating/ArticleRating';
 
 type ArticleDetailsState = {
     article: {
@@ -262,6 +262,7 @@ export default class ArticleDetails extends Component<
                                     value={this.state.newComment.author}
                                     onChange={this.handleCommentChange}
                                     type="text"
+                                    required
                                 />
                                 <p>Kommentar:</p>
                                 <input
@@ -269,6 +270,7 @@ export default class ArticleDetails extends Component<
                                     value={this.state.newComment.content}
                                     onChange={this.handleCommentChange}
                                     type="text"
+                                    required
                                 />
                                 <input
                                     type="submit"

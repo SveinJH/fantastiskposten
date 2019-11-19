@@ -1,11 +1,16 @@
 import React from 'react';
 import Popup from 'reactjs-popup';
 
-import ArticleForm from '../../ArticleForm/ArticleForm';
+import ArticleForm from '../ArticleForm/ArticleForm';
 import classes from './ArticleEdit.module.scss';
 
 type ArticleEditProps = {
-    article: any;
+    article: {
+        title: string;
+        description: string;
+        image: string;
+        category: string;
+    };
     saved: any;
     changed: any;
     checkboxChanged: any;

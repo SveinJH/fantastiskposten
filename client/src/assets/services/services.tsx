@@ -55,6 +55,12 @@ class ArticleService {
             response => response.data
         );
     };
+
+    //////////////
+    // LIVEFEED ITEMS
+    getLivefeedItems = async () => {
+        return Axios.get(`${url}/titles`).then(response => response.data);
+    };
 }
 
 export let articleService = new ArticleService();

@@ -1,10 +1,8 @@
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const mongoose = require("mongoose");
+const app = require("./app");
 
-dotenv.config({ path: '../config.env' });
-const app = require('./app');
-
-const DB : string = 'mongodb://sveinjh:W0yJmJv1BvEbHJ1E@fantastiskposten-shard-00-00-gwcaz.mongodb.net:27017,fantastiskposten-shard-00-01-gwcaz.mongodb.net:27017,fantastiskposten-shard-00-02-gwcaz.mongodb.net:27017/fantastiskposten?ssl=true&replicaSet=fantastiskposten-shard-0&authSource=admin&retryWrites=true&w=majority';
+const DB: string =
+    "mongodb://sveinjh:W0yJmJv1BvEbHJ1E@fantastiskposten-shard-00-00-gwcaz.mongodb.net:27017,fantastiskposten-shard-00-01-gwcaz.mongodb.net:27017,fantastiskposten-shard-00-02-gwcaz.mongodb.net:27017/fantastiskposten?ssl=true&replicaSet=fantastiskposten-shard-0&authSource=admin&retryWrites=true&w=majority";
 
 mongoose
     .connect(DB, {
@@ -14,7 +12,7 @@ mongoose
         useUnifiedTopology: true
     })
     .then(() => {
-        console.log('DB connection successful!');
+        console.log("DB connection successful!");
     });
 
 const port: any = process.env.PORT || 3000;

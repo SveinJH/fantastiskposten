@@ -4,7 +4,7 @@ import Marquee from 'react-double-marquee';
 import classes from './Livefeed.module.scss';
 
 type LivefeedProps = {
-    items: [{ title: string; createdAt: string; id: string }];
+    items: [{ title: string; createdAt: string; _id: string }];
     clicked: any;
 };
 
@@ -15,8 +15,8 @@ const livefeed = ({ items, clicked }: LivefeedProps) => {
 
         return (
             <span
-                key={item.id}
-                id={item.id}
+                key={item._id}
+                id={item._id}
                 onClick={clicked}
                 className={classes.Livefeed__item}
             >

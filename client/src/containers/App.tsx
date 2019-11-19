@@ -5,17 +5,15 @@ import classes from './App.module.scss';
 
 import Header from '../components/Header/Header';
 import Home from './Home/Home';
-import ArticleDetails from '../components/Articles/ArticleDetails/ArticleDetails';
+import ArticleDetails from './Articles/ArticleDetails/ArticleDetails';
 import CreateArticle from './CreateArticle/CreateArticle';
 
 type AppState = {
-    articles: object;
     categories: string[][];
 };
 
 class App extends Component<{}, AppState> {
     state: AppState = {
-        articles: [],
         categories: [['Nyheter'], ['Sport'], ['Underholdning']]
     };
 

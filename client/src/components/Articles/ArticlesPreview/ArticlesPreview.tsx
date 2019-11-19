@@ -3,18 +3,26 @@ import React from 'react';
 import ArticlePreview from './ArticlePreview/ArticlePreview';
 
 type ArticlesPreviewProps = {
-    articles: any;
+    articles: [
+        {
+            _id: string;
+            title: string;
+            description: string;
+            image: string;
+            category: string;
+        }
+    ];
     clicked: any;
 };
 
 const articlesPreview = ({ articles, clicked }: ArticlesPreviewProps) => {
-    return articles.map((article: any) => {
+    return articles.map(article => {
         return (
             <ArticlePreview
-                id={article.id}
+                id={article._id}
                 title={article.title}
                 image={article.image}
-                key={article.id}
+                key={article._id}
                 clicked={clicked}
             />
         );
