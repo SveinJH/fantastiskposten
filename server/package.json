@@ -4,6 +4,7 @@
     "description": "",
     "main": "index.ts",
     "scripts": {
+        "start": "nodemon build/server.js",
         "testLocal": "jest",
         "testExternal": "cross-env TEST=external jest"
     },
