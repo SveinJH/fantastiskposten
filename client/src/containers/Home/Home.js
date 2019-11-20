@@ -48,7 +48,7 @@ export default class Home extends Component {
                     items={this.state.livefeedItems}
                     clicked={this.handleClick}
                 />
-                <h1>{this.props[0]}</h1>
+                <h1 className={classes.Category}>{this.props[0]}</h1>
                 <main className={classes.Home}>
                     <ArticlesPreview
                         articles={this.state.articles}
