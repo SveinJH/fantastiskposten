@@ -19,7 +19,8 @@ describe("testing database", () => {
 
         await mongoose.connect(url, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            useFindAndModify: true
         });
     });
 
