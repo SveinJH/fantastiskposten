@@ -25,6 +25,7 @@
         "typescript": "^3.7.2"
     },
     "devDependencies": {
-        "cross-env": "^6.0.3"
+        "cross-env": "^6.0.3",
+        "supertest": "^4.0.2"
     }
 }

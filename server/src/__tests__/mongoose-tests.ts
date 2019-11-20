@@ -1,13 +1,6 @@
 const mongoose = require("mongoose");
 import Article from "../models/articleModel";
-
-const mockArticle = {
-    title: "Overskrift",
-    description: "Innhold",
-    category: "Nyheter",
-    importance: 1,
-    image: "URL"
-};
+import mockArticles from "../test_data";
 
 const invalidMockArticle = {
     title: "Feil",
@@ -35,11 +28,12 @@ describe("testing database", () => {
     });
 
     afterAll(async () => {
+        await Article.deleteMany();
         await mongoose.connection.close();
     });
 
     it("should insert a doc into collection", async done => {
-        await Article.create(mockArticle);
+        await Article.create(mockArticles[0]);
 
         const insertedArticle = await Article.findOne({
             title: "Overskrift"
@@ -60,17 +54,13 @@ describe("testing database", () => {
     });
 
     it("should contain one document after insert, zero documents after delete", async done => {
-        const mockArticleUniqueTitle = {
-            ...mockArticle,
-            title: "Title"
-        };
-        await Article.create(mockArticleUniqueTitle);
+        await Article.create(mockArticles[0]);
 
         let articleCount = await Article.countDocuments();
 
         expect(articleCount).toBe(1);
 
-        await Article.deleteOne({ title: "Title" });
+        await Article.deleteOne({ title: "Overskrift" });
         articleCount = await Article.countDocuments();
 
         expect(articleCount).toBe(0);
@@ -79,7 +69,7 @@ describe("testing database", () => {
     });
 
     it("should correctly update a document", async done => {
-        await Article.create(mockArticle);
+        await Article.create(mockArticles[0]);
         const updatedArticle = await Article.findOneAndUpdate(
             {
                 title: "Overskrift"
@@ -94,7 +84,7 @@ describe("testing database", () => {
     });
 
     it("should return zero elements on mismatching data", async done => {
-        await Article.create(mockArticle);
+        await Article.create(mockArticles[0]);
         const data = await Article.find({ title: "Ukjent" });
 
         expect(data.length).toBe(0);
@@ -115,8 +105,8 @@ describe("testing database", () => {
         expect.assertions(1);
 
         try {
-            await Article.create(mockArticle);
-            await Article.create(mockArticle);
+            await Article.create(mockArticles[0]);
+            await Article.create(mockArticles[0]);
         } catch (e) {
             expect(e.message).toMatch(/duplicate key error/i);
         }
