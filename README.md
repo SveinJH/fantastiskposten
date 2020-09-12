@@ -14,3 +14,5 @@ This was in order to fix a couple issuses regarding CORS.</br>
 A CORS proxy or the CORS Anywhere should be used when testing the app.</br>
 
 #### Enjoy.
+
+- Screenshot from the landing site: 
