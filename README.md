@@ -16,3 +16,5 @@ A CORS proxy or the CORS Anywhere should be used when testing the app.</br>
 #### Enjoy.
 
 - Screenshot from the landing site: 
+
+![Image from Fantastiskposten](https://github.com/SveinJH/fantastiskposten/blob/master/fantastiskposten.PNG)
