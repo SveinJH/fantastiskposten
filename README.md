@@ -3,6 +3,9 @@
 ##### Welcome to my **miniprosjekt** in the course *Systemutvikling 2* at NTNU Trondheim.<br/>
 The project is an online community-newspaper where one can create, edit, delete or read articles.<br/>
 
+- The project uses React with Typescript and Sass for frontend, plus Jest for testing.
+- For backend the project is built with Node.js, Express and Mongoose to connect to a MongoDB database. Jest is also used to test the backend functionality.
+
 This project contains two smaller project, one for the client application, and one for the backend server.<br/>
 In order to run the project, clone it and in each of the two **client** and **server** folders run `npm install`.<br/>
 In the server project you also have to have Typescript installed globally with `npm i -g typescript`and thereafter run `tsc` in order to build the project.<br/>
